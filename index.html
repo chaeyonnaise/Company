@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)성보케미칼 - 플라스틱 발포 성형 및 접착테이프 제조 전문</title>
+    <style>
+        /* [1. CSS 영역] 눈길을 사로잡는 다크 글래스모피즘 */
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+        :root {
+            /* 강렬하고 깊이 있는 다크 테마 배경 */
+            --bg-dark: #070B19;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            /* 강조 포인트 컬러 (네온 블루 & 시안) */
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            /* 고급스러운 유리 질감 (어두운 배경용) */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            word-break: keep-all;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 17px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* [핵심] 배경이 비어보이지 않게 하는 움직이는 빛(오로라/블롭) 효과 */
+        .bg-glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: float 10s infinite alternate;
+        }
+        .glow-1 {
+            width: 400px; height: 400px;
+            background: #4facfe;
+            top: -10%; left: -10%;
+        }
+        .glow-2 {
+            width: 500px; height: 500px;
+            background: #00f2fe;
+            bottom: -20%; right: -10%;
+            animation-delay: -5s;
+        }
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* 글래스모피즘 공통 패널 */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 카드 호버 효과 (입체감 부여) */
+        .glass-panel.hoverable {
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+        .glass-panel.hoverable:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 40px rgba(0, 242, 254, 0.2);
+        }
+
+        /* 네비게이션 (헤더) */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            margin-bottom: 3rem;
+            background: rgba(7, 11, 25, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links button {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.5rem 1.2rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links button:hover, .nav-links button.active {
+            color: var(--text-main);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 0 15px rgba(79, 172, 254, 0.3);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .page-section {
+            display: none;
+            animation: fadeIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        /* 타이틀 및 헤더 영역 */
+        .hero-section {
+            padding: 6rem 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+        
+        /* 텍스트 그라데이션 강조 */
+        .text-gradient {
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+
+        /* 그리드 및 카드 */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            padding: 3rem 2rem;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            background: var(--glass-bg);
+            padding: 1rem;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* 시선을 끄는 버튼 디자인 */
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            color: #000;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 800;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.6);
+        }
+
+        /* 테이블 및 리스트 (회사소개 등) */
+        .info-list {
+            list-style: none;
+            font-size: 1.1rem;
+        }
+        .info-list li {
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+        }
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+        .info-list strong {
+            color: var(--accent-cyan);
+            width: 120px;
+            flex-shrink: 0;
+        }
+
+        /* 푸터 */
+        footer {
+            margin-top: 5rem;
+            padding: 2.5rem;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            background: rgba(7, 11, 25, 0.8);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.2rem; }
+            .nav-container { flex-direction: column; gap: 1rem; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .hero-section { padding: 4rem 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 시각적 화려함을 더해주는 배경 조명 효과 -->
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <!-- [2. HTML 영역] -->
+    <header>
+        <div class="nav-container">
+            <div class="logo" onclick="navigateTo('home')">(주)성보케미칼</div>
+            <nav class="nav-links">
+                <button onclick="navigateTo('home')" class="active" id="nav-home">홈</button>
+                <button onclick="navigateTo('about')" id="nav-about">공장 소개</button>
+                <button onclick="navigateTo('product')" id="nav-product">생산 라인업</button>
+                <button onclick="navigateTo('location')" id="nav-location">오시는 길</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. 홈 페이지 -->
+        <section id="home" class="page-section active">
+            <div class="glass-panel hero-section" style="margin-bottom: 3rem;">
+                <h1 class="hero-title">최고의 품질을 직접 제조하는<br><span class="text-gradient">산업용 소재 전문 기업</span></h1>
+                <p class="hero-desc">유통 마진을 없앤 자체 공장 다이렉트 생산.<br>성보케미칼은 압도적인 기술력으로 플라스틱 발포 성형 및 테이프를 제조합니다.</p>
+                <button class="btn-primary" onclick="showDemoAlert()">생산 단가 문의하기</button>
+            </div>
+
+            <div class="grid-container">
+                <div class="glass-panel card hoverable">
+                    <div class="card-icon">🏭</div>
+                    <h3>첨단 제조 설비</h3>
+                    <p>경기도 광주시에 위치한 자체 공장에서 원료 배합부터 완제품 가공까지, 첨단 라인을 통해 규격 오차 없는 제품을 대량 양산합니다.</p>
+                </div>
+                <div class="glass-panel card hoverable">
+                    <div class="card-icon">⚙️</div>
+                    <h3>맞춤형 주문 생산 (OEM)</h3>
+                    <p>고객사의 현장에 딱 맞는 밀도, 두께, 점착력을 구현합니다. 산업 전반에 필요한 최적의 솔루션을 직접 설계하고 제조합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 회사(공장)소개 페이지 -->
+        <section id="about" class="page-section">
+            <div class="glass-panel card" style="margin-bottom: 3rem; padding: 4rem 3rem;">
+                <h1 style="font-size: 2.5rem; margin-bottom: 2rem;">기업 및 공장 현황</h1>
+                <ul class="info-list">
+                    <li><strong>기업명</strong> (주)성보케미칼</li>
+                    <li><strong>설립일</strong> 2008년 (다년간의 탄탄한 제조 노하우 축적)</li>
+                    <li><strong>핵심 업종</strong> 플라스틱 발포 성형 제품 제조업, 접착테이프 등 2종</li>
+                    <li><strong>경쟁력</strong> 외부 위탁이 아닌 100% 자체 공장 가동을 통한 단가 절감 및 품질 보증</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 3. 생산 라인업 페이지 -->
+        <section id="product" class="page-section">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h1 style="font-size: 2.5rem;">주요 생산 제품군</h1>
+                <p style="color: var(--text-muted); margin-top: 1rem;">모든 제품은 성보케미칼 공장에서 직접 생산 및 품질 테스트를 거칩니다.</p>
+            </div>
+            <div class="grid-container">
+                <div class="glass-panel card hoverable">
+                    <div class="card-icon">📦</div>
+                    <h3 class="text-gradient">플라스틱 발포 성형품</h3>
+                    <p>건축 자재부터 정밀 부품 완충재까지, 뛰어난 단열성과 내구성을 자랑하는 발포 성형 제품을 생산합니다. 어떠한 형태나 크기라도 금형 설계를 통해 맞춤 제조가 가능합니다.</p>
+                </div>
+                <div class="glass-panel card hoverable">
+                    <div class="card-icon">🏷️</div>
+                    <h3 class="text-gradient">특수 산업용 테이프</h3>
+                    <p>극고온/극저온 등 가혹한 산업 현장에서도 떨어지지 않는 강력 점착 테이프입니다. 롤(Roll) 단위 대량 생산은 물론, 원하는 폭과 길이로 정밀 재단하여 납품합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 오시는 길 페이지 -->
+        <section id="location" class="page-section">
+            <div class="glass-panel card" style="padding: 4rem 2rem; text-align: center;">
+                <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">제조 공장 찾아오시는 길</h1>
+                <p style="color: var(--text-muted); margin-bottom: 3rem;">공장 실사 및 방문 상담을 환영합니다.</p>
+                
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--accent-cyan);">(주)성보케미칼 본사 및 제1공장</h3>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">경기도 광주시 목현동 (자세한 번지수는 유선 안내)</p>
+                
+                <div style="background: rgba(255,255,255,0.03); border: 1px dashed var(--glass-border); padding: 4rem; border-radius: 16px; margin-bottom: 2rem;">
+                    [지도 API 연동 영역]<br><span style="font-size: 0.9rem; color: var(--text-muted);">실제 서버 구축 시 카카오맵/네이버 지도가 표시됩니다.</span>
+                </div>
+                
+                <p style="font-size: 1.2rem;"><strong>발주 및 방문 문의 :</strong> <span class="text-gradient" style="font-weight: 800;">031-XXX-XXXX</span></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>(주)성보케미칼 | 경기도 광주시 목현동 | 직접 제조 생산 라인 가동</p>
+        <p style="margin-top: 0.5rem; opacity: 0.5;">© 2026 Sungbo Chemical Co., Ltd. All Rights Reserved. (Demo Version)</p>
+    </footer>
+
+    <!-- [3. JavaScript 영역] -->
+    <script>
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.nav-links button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            document.getElementById(pageId).classList.add('active');
+            document.getElementById('nav-' + pageId).classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showDemoAlert() {
+            alert('현재 웹사이트는 프론트엔드 디자인 데모 시안입니다.\n실제 문의 접수 기능은 백엔드 구축 후 활성화됩니다.');
+        }
+    </script>
+</body>
+</html>
