@@ -3,50 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(주)성보케미칼 - 플라스틱 발포 성형 및 접착테이프 직접 제조</title>
+    <title>(주)이노머티리얼즈 - 첨단 산업용 소재 제조 전문</title>
     <style>
-        /* [1. CSS 영역] 디자인 및 글래스모피즘 스타일 설정 */
+        /* [1. CSS 영역] 프리미엄 다크 인더스트리얼 & 글래스모피즘 */
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
         :root {
-            /* 중장년층을 배려한 차분한 코퍼레이트 블루 & 웜그레이 배경 */
-            --bg-gradient: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
-            /* 높은 가독성을 위한 진한 텍스트 색상 */
-            --text-main: #1e293b;
-            --text-muted: #475569;
-            /* 글래스모피즘 (유리 질감) 속성 */
-            --glass-bg: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            /* 강조 색상 (신뢰의 블루) */
-            --primary-color: #2563eb;
+            /* 묵직하고 고급스러운 다크 그라파이트 배경 */
+            --bg-dark: #0d0d0f;
+            --text-main: #f8fafc;
+            --text-muted: #a1a1aa;
+            /* 강조 포인트 컬러 (일렉트릭 앰버 & 웜 골드) */
+            --accent-primary: #f59e0b; /* Amber */
+            --accent-secondary: #fbbf24; /* Warm Gold */
+            /* 프리미엄 유리 질감 */
+            --glass-bg: rgba(25, 25, 28, 0.6);
+            --glass-border: rgba(245, 158, 11, 0.15);
+            --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            word-break: keep-all; /* 모바일에서 단어 잘림 방지 */
+            word-break: keep-all;
         }
 
         body {
-            font-family: 'Pretendard', 'Malgun Gothic', '맑은 고딕', sans-serif;
-            background-image: var(--bg-gradient);
-            background-attachment: fixed;
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-dark);
             color: var(--text-main);
             line-height: 1.6;
-            font-size: 17px; /* 가독성을 위해 폰트 크기 확대 */
+            font-size: 17px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* 공통 유리 질감 카드 패널 */
+        /* 앰버 톤의 배경 조명 (용광로/에너지 느낌) */
+        .bg-glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: pulse 12s infinite alternate;
+        }
+        .glow-1 {
+            width: 450px; height: 450px;
+            background: #d97706; /* 다크 앰버 */
+            top: -5%; left: -5%;
+        }
+        .glow-2 {
+            width: 550px; height: 550px;
+            background: #b45309; /* 딥 브론즈 */
+            bottom: -15%; right: -5%;
+            animation-delay: -6s;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.3; }
+            100% { transform: scale(1.1) translate(40px, 30px); opacity: 0.6; }
+        }
+
+        /* 글래스모피즘 공통 패널 */
         .glass-panel {
             background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
+            border-radius: 20px;
             box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 카드 호버 효과 (프리미엄 입체감) */
+        .glass-panel.hoverable {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s, box-shadow 0.4s;
+        }
+        .glass-panel.hoverable:hover {
+            transform: translateY(-8px);
+            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: 0 15px 45px rgba(245, 158, 11, 0.15);
         }
 
         /* 네비게이션 (헤더) */
@@ -55,7 +95,10 @@
             top: 0;
             z-index: 100;
             padding: 1rem 2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            background: rgba(13, 13, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .nav-container {
@@ -67,15 +110,29 @@
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 800;
-            color: var(--primary-color);
+            color: #fff;
             cursor: pointer;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-primary);
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .nav-links button {
@@ -85,14 +142,15 @@
             font-weight: 600;
             color: var(--text-muted);
             cursor: pointer;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 12px;
             transition: all 0.3s ease;
         }
 
         .nav-links button:hover, .nav-links button.active {
-            color: var(--primary-color);
-            background: rgba(255, 255, 255, 0.5);
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
         }
 
         /* 메인 콘텐츠 영역 */
@@ -104,10 +162,9 @@
             padding: 0 1.5rem;
         }
 
-        /* SPA 페이지 전환을 위한 숨김 처리 */
         .page-section {
             display: none;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .page-section.active {
@@ -115,28 +172,39 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(15px); filter: blur(3px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
-        /* 각 섹션 공통 레이아웃 */
-        .section-header {
+        /* 타이틀 및 헤더 영역 */
+        .hero-section {
+            padding: 7rem 3rem;
             text-align: center;
-            margin-bottom: 3rem;
+            background: linear-gradient(180deg, rgba(245,158,11,0.05) 0%, rgba(0,0,0,0) 100%);
         }
 
-        .section-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #0f172a;
+        .hero-title {
+            font-size: 3.4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.25;
+            letter-spacing: -1.5px;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .section-header p {
-            font-size: 1.2rem;
+        .hero-desc {
+            font-size: 1.3rem;
             color: var(--text-muted);
+            margin-bottom: 3.5rem;
+            font-weight: 300;
         }
 
-        /* 그리드 카드 레이아웃 (제조설비, 제품 등) */
+        /* 그리드 및 카드 */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -145,73 +213,112 @@
         }
 
         .card {
-            padding: 2.5rem;
-            text-align: left;
+            padding: 3rem 2.5rem;
+        }
+
+        .card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 18px;
+            border: 1px solid var(--glass-border);
+            color: var(--accent-secondary);
         }
 
         .card h3 {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             margin-bottom: 1rem;
-            color: var(--primary-color);
+            color: var(--text-main);
+            letter-spacing: -0.5px;
         }
 
-        /* 버튼 디자인 */
+        .card p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* 시선을 끄는 버튼 디자인 */
         .btn-primary {
             display: inline-block;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent-primary), #d97706);
+            color: #000;
+            padding: 1.2rem 2.8rem;
+            font-size: 1.2rem;
+            font-weight: 800;
+            border-radius: 50px;
             border: none;
             cursor: pointer;
-            text-decoration: none;
-            margin-top: 1.5rem;
-            transition: background 0.3s;
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+            transition: all 0.3s ease;
         }
 
         .btn-primary:hover {
-            background-color: #1d4ed8;
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.5);
+        }
+
+        /* 테이블 및 리스트 */
+        .info-list {
+            list-style: none;
+            font-size: 1.15rem;
+        }
+        .info-list li {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+        }
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+        .info-list strong {
+            color: var(--accent-secondary);
+            width: 140px;
+            flex-shrink: 0;
+            font-weight: 700;
         }
 
         /* 푸터 */
         footer {
-            margin-top: 4rem;
-            padding: 2rem;
+            margin-top: 6rem;
+            padding: 3rem 2rem;
             text-align: center;
-            font-size: 0.95rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: #09090b;
             color: var(--text-muted);
+            font-size: 1rem;
         }
 
-        /* 모바일 대응 */
         @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.5rem;
-            }
-            .section-header h1 {
-                font-size: 2rem;
-            }
+            .hero-title { font-size: 2.4rem; }
+            .nav-container { flex-direction: column; gap: 1rem; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .hero-section { padding: 4rem 1.5rem; }
+            .card { padding: 2rem 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- [2. HTML 영역] 눈에 보이는 웹 페이지 구조 -->
-    <header class="glass-panel">
+    <!-- 앰버 톤 배경 조명 효과 -->
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <!-- [2. HTML 영역] -->
+    <header>
         <div class="nav-container">
-            <div class="logo" onclick="navigateTo('home')">(주)성보케미칼</div>
+            <div class="logo" onclick="navigateTo('home')">(주)이노머티리얼즈</div>
             <nav class="nav-links">
                 <button onclick="navigateTo('home')" class="active" id="nav-home">홈</button>
-                <button onclick="navigateTo('about')" id="nav-about">회사(공장)소개</button>
-                <button onclick="navigateTo('product')" id="nav-product">생산 제품</button>
-                <button onclick="navigateTo('location')" id="nav-location">오시는 길</button>
+                <button onclick="navigateTo('about')" id="nav-about">팩토리 소개</button>
+                <button onclick="navigateTo('product')" id="nav-product">생산 솔루션</button>
+                <button onclick="navigateTo('location')" id="nav-location">컨택 포인트</button>
             </nav>
         </div>
     </header>
@@ -219,107 +326,103 @@
     <main>
         <!-- 1. 홈 페이지 -->
         <section id="home" class="page-section active">
-            <div class="glass-panel card section-header" style="padding: 4rem 2rem;">
-                <h1>신뢰를 제조하는 기업, (주)성보케미칼</h1>
-                <p>단순 유통이 아닌, 우수한 자체 생산 라인을 갖춘 제조 전문 공장입니다.<br>플라스틱 발포 성형 제품과 고품질 접착테이프를 직접 생산하여 합리적인 단가에 공급합니다.</p>
-                <button class="btn-primary" onclick="showDemoAlert()">생산 및 단가 문의하기</button>
+            <div class="glass-panel hero-section" style="margin-bottom: 3rem;">
+                <h1 class="hero-title">미래 산업의 뼈대를 주조하는<br><span class="text-gradient">첨단 소재 제조 솔루션</span></h1>
+                <p class="hero-desc">외주 없는 100% 자체 공장 가동, 타협 없는 품질 기준.<br>(주)이노머티리얼즈는 산업 인프라에 필요한 고성능 폴리머와 특수 점착 소재를 직접 제조합니다.</p>
+                <button class="btn-primary" onclick="showDemoAlert()">생산 캐파 및 단가 문의</button>
             </div>
 
             <div class="grid-container">
-                <div class="glass-panel card">
-                    <h3>자체 생산 공정</h3>
-                    <p>경기도 광주시에 위치한 자체 공장에서 원료 배합부터 압출, 발포, 가공까지 원스톱(One-Stop) 제조 라인을 가동하고 있습니다. 중간 마진 없는 합리적인 납품이 가능합니다.</p>
+                <div class="glass-panel card hoverable">
+                    <div class="card-icon">🏗️</div>
+                    <h3>독자적 제조 인프라</h3>
+                    <p>첨단 산업단지 내 대규모 자체 제조 라인을 구축하여, 원료 배합부터 완제품 출하까지 원스톱 공정으로 완벽한 품질 통제력을 확보했습니다.</p>
                 </div>
-                <div class="glass-panel card">
-                    <h3>철저한 품질 관리</h3>
-                    <p>현장 중심의 엄격한 품질 검사를 거친 제품만 출고합니다. 건설/산업 현장에서 요구하는 내구성과 접착력을 완벽히 충족하는 제품을 생산합니다.</p>
+                <div class="glass-panel card hoverable">
+                    <div class="card-icon">⚙️</div>
+                    <h3>맞춤형 스펙 엔지니어링</h3>
+                    <p>고객사의 공정에 최적화된 물성치(밀도, 내열성, 점착력)를 구현합니다. 정밀한 금형 및 배합 설계를 통한 주문형(OEM) 양산이 가능합니다.</p>
                 </div>
             </div>
         </section>
 
-        <!-- 2. 회사(공장)소개 페이지 -->
+        <!-- 2. 공장/회사 소개 페이지 -->
         <section id="about" class="page-section">
-            <div class="section-header">
-                <h1>회사 및 공장 소개</h1>
-                <p>다년간의 제조 노하우로 최상의 산업용 소재를 생산합니다.</p>
-            </div>
-            <div class="glass-panel card" style="margin-bottom: 2rem;">
-                <h3>기업 개요</h3>
-                <ul style="list-style-type: none; margin-top: 1rem;">
-                    <li style="margin-bottom: 0.8rem;"><strong>상호명 :</strong> (주)성보케미칼</li>
-                    <li style="margin-bottom: 0.8rem;"><strong>업 종 :</strong> 플라스틱 발포 성형 제품 제조업, 접착테이프 등 2종</li>
-                    <li style="margin-bottom: 0.8rem;"><strong>핵심 역량 :</strong> 대량 생산 라인 구축, 맞춤형 규격(OEM) 제조 가능</li>
+            <div class="glass-panel card" style="margin-bottom: 3rem; padding: 4rem 3rem;">
+                <h1 style="font-size: 2.6rem; margin-bottom: 2rem;">기업 및 생산 인프라</h1>
+                <ul class="info-list">
+                    <li><strong>기업명</strong> (주)이노머티리얼즈 (InnoMaterials)</li>
+                    <li><strong>핵심 역량</strong> 고성능 산업용 폴리머, 특수 내열 점착 테이프 직접 제조</li>
+                    <li><strong>제조 경쟁력</strong> 최신식 압출·발포 텐터(Tenter) 라인 및 정밀 코팅 설비 자체 보유</li>
+                    <li><strong>품질 경영</strong> ISO 인증 기반의 현장 중심 전수 검사 및 무결점 출고 시스템</li>
                 </ul>
             </div>
         </section>
 
-        <!-- 3. 생산 제품 페이지 -->
+        <!-- 3. 생산 솔루션 페이지 -->
         <section id="product" class="page-section">
-            <div class="section-header">
-                <h1>주요 생산 제품</h1>
-                <p>성보케미칼 공장에서 직접 생산하는 고품질 제품군입니다.</p>
+            <div style="text-align: center; margin-bottom: 3.5rem;">
+                <h1 style="font-size: 2.6rem;">핵심 생산 라인업</h1>
+                <p style="color: var(--text-muted); margin-top: 1rem; font-size: 1.1rem;">자체 공장에서 양산되는 산업 현장 맞춤형 고기능성 소재입니다.</p>
             </div>
             <div class="grid-container">
-                <div class="glass-panel card">
-                    <h3>플라스틱 발포 성형 제품</h3>
-                    <p>우수한 단열성과 완충성을 지닌 발포 성형 제품입니다. 건축 자재, 산업용 완충재 등 고객사가 요구하는 다양한 밀도와 규격으로 맞춤 생산(주문제조)이 가능합니다.</p>
+                <div class="glass-panel card hoverable">
+                    <div class="card-icon">🛡️</div>
+                    <h3 class="text-gradient">고성능 발포 성형체</h3>
+                    <p>초정밀 완충, 극한의 단열 및 방음 성능을 요구하는 첨단 건축물과 정밀 기계 부품용 특수 발포 소재를 제조합니다. 고객사 요구 규격에 맞춘 3D 맞춤 성형을 지원합니다.</p>
                 </div>
-                <div class="glass-panel card">
-                    <h3>산업용 접착테이프</h3>
-                    <p>극한의 환경에서도 떨어지지 않는 강력한 산업용 테이프를 제조합니다. 용도에 따른 점착력 조절 및 롤(Roll) 단위 대량 양산 설비를 갖추고 있습니다.</p>
+                <div class="glass-panel card hoverable">
+                    <div class="card-icon">🔬</div>
+                    <h3 class="text-gradient">특수 산업용 점착 롤</h3>
+                    <p>초고온 및 극저온, 화학적 부식이 발생하는 열악한 산업 환경에서도 점착력을 유지하는 고기능성 테이프입니다. 대규모 롤(Roll) 양산 및 커스텀 슬리팅(Slitting)을 제공합니다.</p>
                 </div>
             </div>
         </section>
 
-        <!-- 4. 오시는 길 페이지 -->
+        <!-- 4. 컨택 포인트 (오시는 길) 페이지 -->
         <section id="location" class="page-section">
-            <div class="section-header">
-                <h1>공장 오시는 길</h1>
-                <p>성보케미칼 제조 공장 및 본사 위치를 안내해 드립니다.</p>
-            </div>
-            <div class="glass-panel card" style="text-align: center;">
-                <h3>(주)성보케미칼 광주 공장</h3>
-                <p style="margin: 1.5rem 0; font-size: 1.2rem;"><strong>주소 :</strong> 경기도 광주시 목현동 (상세 주소 문의)</p>
-                <div style="background: rgba(0,0,0,0.05); padding: 3rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                    [지도 API 데모 영역] 실제 도입 시 카카오맵 또는 네이버 지도 API가 연동되는 공간입니다.
+            <div class="glass-panel card" style="padding: 4.5rem 2rem; text-align: center;">
+                <h1 style="font-size: 2.6rem; margin-bottom: 1rem;">생산 거점 및 문의</h1>
+                <p style="color: var(--text-muted); margin-bottom: 3.5rem; font-size: 1.1rem;">공장 실사 및 샘플 테스트 문의를 환영합니다.</p>
+                
+                <h3 style="font-size: 1.6rem; margin-bottom: 1rem; color: var(--text-main);">(주)이노머티리얼즈 첨단 제조 센터</h3>
+                <p style="font-size: 1.25rem; margin-bottom: 2.5rem; color: var(--text-muted);">수도권 첨단산업단지 내 제1공장 (보안 구역으로 방문 전 예약 필수)</p>
+                
+                <div style="background: rgba(0,0,0,0.3); border: 1px dashed var(--glass-border); padding: 5rem; border-radius: 20px; margin-bottom: 2.5rem;">
+                    <span style="font-size: 1.2rem; color: var(--accent-primary);">[지도 API 연동 영역]</span><br>
+                    <span style="font-size: 1rem; color: var(--text-muted);">실제 프로덕션 환경에서 카카오맵 또는 네이버 지도가 표시되는 위치입니다.</span>
                 </div>
-                <p><strong>공장 방문 및 발주 문의 :</strong> 031-XXX-XXXX</p>
+                
+                <p style="font-size: 1.3rem;"><strong>제조 발주 및 컨설팅 문의 :</strong> <span class="text-gradient" style="font-weight: 800; font-size: 1.5rem; margin-left: 10px;">15XX-XXXX</span></p>
             </div>
         </section>
     </main>
 
-    <footer class="glass-panel" style="border-radius: 0; border-bottom: none; border-left: none; border-right: none;">
-        <p>(주)성보케미칼 | 경기도 광주시 목현동 | 업종: 플라스틱 발포 성형 제품 제조업 외</p>
-        <p style="margin-top: 0.5rem;">© 2026 Sungbo Chemical Co., Ltd. All Rights Reserved. (본 사이트는 데모 버전입니다)</p>
+    <footer>
+        <p style="font-weight: 600; color: #fff; margin-bottom: 8px;">(주)이노머티리얼즈 | INNOMATERIALS CO., LTD.</p>
+        <p>첨단 산업용 소재 제조 | 수도권 첨단산업단지 자체 공장 가동</p>
+        <p style="margin-top: 1.5rem; opacity: 0.4; font-size: 0.85rem;">© 2026 InnoMaterials Co., Ltd. All Rights Reserved. (UI Design Demo)</p>
     </footer>
 
-    <!-- [3. JavaScript 영역] 페이지 이동 및 동작 기능 -->
+    <!-- [3. JavaScript 영역] -->
     <script>
-        // 페이지 전환 (SPA) 함수
         function navigateTo(pageId) {
-            // 모든 섹션 숨기기
             document.querySelectorAll('.page-section').forEach(section => {
                 section.classList.remove('active');
             });
             
-            // 모든 네비게이션 버튼 활성화 상태 해제
             document.querySelectorAll('.nav-links button').forEach(button => {
                 button.classList.remove('active');
             });
             
-            // 선택된 섹션 보이기
             document.getElementById(pageId).classList.add('active');
-            
-            // 선택된 네비게이션 버튼 활성화 효과 적용
             document.getElementById('nav-' + pageId).classList.add('active');
 
-            // 화면을 최상단으로 부드럽게 스크롤
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 데모 버전 안내 모달 (브라우저 기본 alert 대신 사용 가능)
         function showDemoAlert() {
-            alert('현재 웹사이트는 디자인 시안(데모)입니다.\n실제 문의 기능은 백엔드 서버 연동 후 작동합니다.');
+            alert('현재 웹사이트는 기업용 랜딩 페이지 UI 시안입니다.\n실제 생산 단가 및 발주 문의 접수 시스템은 백엔드 구축 후 활성화됩니다.');
         }
     </script>
 </body>
